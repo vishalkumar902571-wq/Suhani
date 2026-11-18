@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Princess Day my dear su 👑💖</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body {
+      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      text-align: center;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 30px 25px;
+      border-radius: 25px;
+      box-shadow: 0 15px 35px rgba(255, 75, 110, 0.25);
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+      border: 3px solid #ff85a2;
+    }
+    .crown { font-size: 60px; animation: bounce 1.5s infinite; display: inline-block; }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    h1 { color: #d6336c; font-size: 26px; margin: 10px 0; }
+    p { color: #555; font-size: 16px; line-height: 1.5; margin-bottom: 20px; }
+    .compliment-box {
+      background: #fff0f5;
+      border: 2px dashed #ff6b8b;
+      border-radius: 15px;
+      padding: 15px;
+      margin: 15px 0;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #c2185b;
+      font-size: 17px;
+      transition: all 0.3s ease;
+    }
+    .btn {
+      background: linear-gradient(45deg, #ff4b72, #ff758c);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255, 75, 114, 0.4);
+      transition: transform 0.2s;
+      margin: 5px;
+    }
+    .btn:active { transform: scale(0.95); }
+    .game-area {
+      position: relative;
+      height: 160px;
+      background: #ffe6ee;
+      border-radius: 15px;
+      margin-top: 15px;
+      overflow: hidden;
+      border: 2px solid #ffb3c6;
+      display: none;
+    }
+    .target {
+      position: absolute;
+      font-size: 32px;
+      cursor: pointer;
+      user-select: none;
+      transition: top 0.3s, left 0.3s;
+    }
+    .score { font-weight: bold; color: #d6336c; margin-top: 10px; display: none; }
+    .floating {
+      position: fixed;
+      font-size: 24px;
+      animation: floatUp 4s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="crown">👑</div>
+    <h1>Happy Princess Day! My Dear Su 🥰🥰✨</h1>
+    <p> Aasman ☁️ me h chand 🌙 to zameen par teri aankhein 👀 ,Dono jahan me khubsurti barabar banti gyi 🙈💖🌸</p>
+
+    <div class="compliment-box" id="compliment">
+      click on the button ✅ again and againhttp://localhost:7700/<princesssu class="html"></princesssu>🪄✨
+    </div>
+
+    <button class="btn" onclick="nextCompliment()"> Do lafz tunhare liye 💕</button>
+    <button class="btn" style="background: linear-gradient(45deg, #a18cd1, #fbc2eb);" onclick="startGame()">मिनी गेम खेलें 🎮</button>
+
+    <div class="score" id="scoreBoard">प्यार का स्कोर: <span id="score">0</span> 💖</div>
+    <div class="game-area" id="gameArea">
+      <div class="target" id="target" onclick="catchHeart()">💖</div>
+    </div>
+  </div>
+
+  <script>
+    const compliments = [
+      "Log bachte h samunder se lekin ,hm tumhari aankhon me doobne ko taiyaar h,Kisko dekhne ki chahat kre? tumko dekh liya h ek baar, tumhari zulfon ki gehrai h bahut, aur hamko pasand nhi aata h kinara log kehte h chand 🌙 ka tukda ho tum, hum kehte h chand bhi tukda h tumhara ✨",
+      "Man 🫣ye kehta ki agar aap hnare hote ,man ye kehta ki agar aap hmare hote ,ab bhi pyare ho magar aur bhi pyare hote 💛👑",
+      "ke esa banna sawarna Mubarak tumhe ,    kam se kam itna kehna hmara tumhe.     chand sharmayga chandi raat me.        yu na zulfo ko apni sawanra kro        ye aariz ye Tabassum ye roshan zabben. ye aankhein ye palke ye zulfe haseen.  Aaine ki najar lag na jaye khi.        jane jaan apna sadqa utara kro 🌟💖✨"
+    ];
+
+    let index = 0;
+    let score = 0;
+
+    function nextCompliment() {
+      const box = document.getElementById("compliment");
+      box.style.transform = "scale(0.95)";
+      setTimeout(() => {
+        box.innerText = compliments[index];
+        box.style.transform = "scale(1)";
+        index = (index + 1) % compliments.length;
+        createFloatingEmoji();
+      }, 150);
+    }
+
+    function startGame() {
+      document.getElementById("gameArea").style.display = "block";
+      document.getElementById("scoreBoard").style.display = "block";
+      moveTarget();
+    }
+
+    function moveTarget() {
+      const area = document.getElementById("gameArea");
+      const target = document.getElementById("target");
+      const maxX = area.clientWidth - 45;
+      const maxY = area.clientHeight - 45;
+      target.style.left = Math.floor(Math.random() * maxX) + "px";
+      target.style.top = Math.floor(Math.random() * maxY) + "px";
+    }
+
+    function catchHeart() {
+      score++;
+      document.getElementById("score").innerText = score;
+      const emojis = ["💖", "👑", "🌸", "🦋", "✨", "🍓"];
+      document.getElementById("target").innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      moveTarget();
+      if (score % 3 === 0) {
+        nextCompliment();
+      }
+    }
+
+    function createFloatingEmoji() {
+      const emojis = ["💖", "👑", "🌸", "✨", "💕", "🎀"];
+      const el = document.createElement("div");
+      el.className = "floating";
+      el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4000);
+    }
+
+    setInterval(createFloatingEmoji, 800);
+  </script>
+
+</body>
+</html>
